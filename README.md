@@ -29,7 +29,7 @@ const storeFactory = compose(
 ...
 import { compose } from 'redux'
 import { view, applyLocalMiddleware } from 'redux-container-state'
-import { sagaViewEnhancer } from '../globalsaga'
+import { sagaViewEnhancer } from 'redux-container-state-globalsaga'
 
 import yourSaga from './sagas'
 
