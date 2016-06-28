@@ -1,6 +1,6 @@
 import React from 'react'
 import { createSagaAction } from './sagaStoreEnhancer'
-import { getLocationAction, getModel } from 'redux-container-state/lib/middleware'
+import { getLocationAction, getModel } from 'redux-container-state/lib/modelRepository'
 import warning from 'warning'
 
 const emptyData = {}
@@ -22,10 +22,9 @@ export default (createSaga, options) => {
                 componentDidMount() {
                     if (createSaga) {
 
-                        const { dispatch } = this.props
-                        let containerLocation
-                        dispatch(getLocationAction((location) => containerLocation = location))
-                        warning(containerLocation !== undefined, 'Middleware \'containerStateMiddleware\' not installed. Apply this middleware to your Redux store.')
+                        const { localDispatch } = this.props
+
+                        const containerLocation = localDispatch({ type: '@@GET_FULL_NAME', isNameLookup: true })
 
                         this.saga = createSaga({
                             getState: () => {
@@ -34,7 +33,7 @@ export default (createSaga, options) => {
                             type: (typeName) => containerLocation + '->' + typeName
                         })
 
-                        dispatch(createSagaAction(this.saga))
+                        localDispatch(createSagaAction(this.saga))
                     }
 
                     if (options.onMount) {
