@@ -11,12 +11,10 @@ This package encapsulates `redux-saga` into a dedicated redux store enhancer. On
 ```javascript
 ...
 import { applyMiddleware, createStore, compose } from 'redux'
-import { containerStateMiddleware } from 'redux-container-state'
 import { sagaStoreEnhancer } from 'redux-container-state-globalsaga'
 
 ...
 const storeFactory = compose(
-  applyMiddleware(containerStateMiddleware()),
   sagaStoreEnhancer(),
   ...
 )(createStore)
